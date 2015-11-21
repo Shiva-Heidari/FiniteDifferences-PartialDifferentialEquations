@@ -1,0 +1,26 @@
+
+# solving diffusion equation 
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+D=1
+dt=0.02
+dx=0.1
+c=(D*dt)/2*(dx*dx)
+Nx=2000
+Nt=10000
+u=np.zeros((Nt,Nx))
+#u[:,0]=np.exp(-(np.arange(N)-500)**2/100)
+u[0,:] = np.exp(-(np.arange(Nx)-1000)**2/10000) 
+for n in range (Nt-1):
+    for j in range (Nx-1):
+        u[n+1,j]=u[n,j]+c*((u[n+1,(j+1)%Nx]-2*u[n+1,j]+u[n+1,(j-1)%Nx])+(u[n,(j+1)%Nx]-2*u[n,j]+u[n,(j-1)%Nx]))
+        
+plt.imshow(u)
+plt.show()
+plt.plot(u[0,:])
+plt.show()
+plt.plot(u[Nt//2,:])
+plt.show()
+plt.plot(u[-1,:])
+plt.show()
