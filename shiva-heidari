@@ -1,0 +1,25 @@
+# wave equation
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline
+dt=0.02
+dx=0.1
+v=1
+c=(dt*v/dx)**2
+Nx=2000
+Nt=10000
+u=np.zeros((Nt,Nx))
+
+u[0,:] = np.exp(-(np.arange(Nx)-1000)**2/10000) 
+for n in range (Nt-1):
+    for j in range (Nx-1):
+        u[n+1,j]=2*u[n,j]-u[n-1,j]+c*(u[n,(j+1)%Nx]-2*u[n,j]+u[n,(j-1)%Nx])
+        
+plt.imshow(u)
+plt.show()
+plt.plot(u[0,:])
+plt.show()
+plt.plot(u[Nt//2,:])
+plt.show()
+plt.plot(u[-1,:])
+plt.show()
